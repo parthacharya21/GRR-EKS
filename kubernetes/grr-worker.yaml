@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grr-worker
+  namespace: grr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grr-worker
+  template:
+    metadata:
+      labels:
+        app: grr-worker
+    spec:
+      containers:
+        - name: grr-worker
+          image: parthacharya21/grr:v4
+          args: ["-component", "worker", "-config", "/configs/server/grr.server.yaml", "--verbose"]
+

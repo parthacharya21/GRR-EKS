@@ -1,0 +1,13 @@
+Server.initialized: true
+
+Database.implementation: MysqlDB
+
+# e2e tests need write to the database
+Mysql.host: grr.cf0ygy60ymd2.ap-south-1.rds.amazonaws.com
+Mysql.port: 7272
+Mysql.database: grr
+Mysql.password: sodinhgsldgkjsoidtjh65456sdf4
+Mysql.username: grradmin
+
+PrivateKeys.executable_signing_private_key: |
+  %(/configs/private-key.pem|file)

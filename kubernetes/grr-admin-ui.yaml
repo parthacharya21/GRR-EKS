@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grr-admin-ui
+  namespace: grr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grr-admin-ui
+  template:
+    metadata:
+      labels:
+        app: grr-admin-ui
+    spec:
+      containers:
+        - name: grr-admin-ui
+          image: parthacharya21/grr:v4
+          command: ["/bin/bash", "-c"]
+          args: ["/configs/server/repack_clients.sh && grr_server -component admin_ui -config /configs/server/grr.server.yaml --verbose"]
+          ports:
+            - containerPort: 8000 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grr-admin-ui
+  namespace: grr
+spec:
+  type: ClusterIP
+  selector:
+    app: grr-admin-ui
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+
