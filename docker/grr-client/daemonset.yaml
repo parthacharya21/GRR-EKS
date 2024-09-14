@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: grr
+  namespace: grr
+  labels:
+    app: grr
+spec:
+  selector:
+    matchLabels:
+      app: grr
+  template:
+    metadata:
+      labels:
+        app: grr
+    spec:
+      nodeSelector:
+        grr: installed
+   
+      hostPID: true
+      volumes:
+      - name: root
+        hostPath:
+          path: /
+      containers:
+      - name: grr
+        image: parthacharya21/grr-client:v5
+        command: ["/usr/bin/fleetspeak-client", "--config", "/etc/fleetspeak-client/client.config"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /hostroot
+          name: root
+          readOnly: true

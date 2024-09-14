@@ -1,0 +1,13 @@
+Client.fleetspeak_enabled: true
+Client.server_urls:
+- fleetspeak-frontend
+Client.foreman_check_frequency: 10  # seconds
+
+Config.directory: /configs/client
+
+Logging.verbose: true
+Logging.engines: file,stderr
+Logging.path: /tmp/grr-client
+Logging.filename: /tmp/grr-client/grr-client.log
+
+Client.executable_signing_public_key: "%(/configs/public-key.pem|file)"
